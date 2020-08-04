@@ -1,0 +1,16 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %} | Account Login {% endblock %}
+
+{% block content %}
+<h1>Video Uploader</h1>
+<form enctype="multipart/form-data" method="POST" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Upload"/>
+</form>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %} | Video {% endblock %}
+
+{% block content %}
+
+
+<br><br>
+    <div class="col-12">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                   <video width='800' controls>
+                    <source src='{{ MEDIA_URL }}{{ video.path }}' type='video/mp4'>
+                    Your browser does not support the video tag.
+                    </video>
+                    <br><br>
+                </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+

@@ -1,0 +1,29 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %} | Account Login {% endblock %}
+
+{% block content %}
+{#<h1>Video Uploader</h1>#}
+{#<form enctype="multipart/form-data" method="POST" action="">#}
+{#{% csrf_token %}#}
+{#{{ form.as_p }}#}
+{#<input type="submit" value="Upload"/>#}
+{#</form>#}
+
+<br><br>
+    <div class="col-12">
+        <div class="row">
+            {% for video in videos %}
+            <a href="{% url 'video' video.id %}"><div class="col-md-4">
+                    <video width='400' controls>
+                    <source src='{{ MEDIA_URL }}{{ video.path }}' type='video/mp4'>
+                    Your browser does not support the video tag.
+                    </video></a>
+                    <br><br>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock content %}

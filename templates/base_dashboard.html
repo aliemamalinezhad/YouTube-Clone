@@ -1,0 +1,115 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Font Awesome -->
+    <link href="{% static 'css/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/all.css' %}">
+
+
+  <title>YouTube {% block title %}{% endblock %}</title>
+</head>
+
+<body class="bg-light">
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-dark border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading  text-white"><img class="img brand-img" src="{% static 'img/logo3.png' %}"> </div>
+      <div class="list-group list-group-flush ">
+          {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action text-white bg-dark">Dashboard</a>           <a href="{% url 'admin_panel' %}" class="list-group-item list-group-item-action text-white bg-dark">AdminPanel</a>
+          {% endif %}
+        <a href="#" class="list-group-item list-group-item-action text-white bg-dark">Overview</a>
+        <a href="#" class="list-group-item list-group-item-action text-white bg-dark">Events</a>
+        <a href="#" class="list-group-item list-group-item-action text-white bg-dark">Profile</a>
+        <a href="#" class="list-group-item list-group-item-action text-white bg-dark">Status</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+        <button class="btn btn-outline-warning" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li
+            {% if 'dashboard' in request.path %}
+              class="nav-item active mr-3"
+            {% else %}
+              class="nav-item mr-3"
+            {% endif %}
+            >
+              <a class="nav-link" href="{% url 'dashboard' %}">
+               Welcome {{ user.username }} (Dashboard)</a>
+            </li>
+            <li class="nav-item mr-3">
+              <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+              <form action="{% url 'logout' %}" method="POST" id="logout">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
+            </li>
+          {% else %}
+            <li
+            {% if 'register' in request.path %}
+              class="nav-item active mr-3"
+            {% else %}
+              class="nav-item mr-3"
+            {% endif %}
+            >
+              <a class="nav-link" href="{% url 'register' %}">
+                <i class="fas fa-user-plus"></i> Register</a>
+            </li>
+            <li
+            {% if 'login' in request.path %}
+              class="nav-item active mr-3"
+            {% else %}
+              class="nav-item mr-3"
+            {% endif %}
+            >
+              <a class="nav-link" href="{% url 'login' %}">
+                <i class="fas fa-sign-in-alt"></i>
+
+                Login</a>
+            </li>
+          {% endif %}
+
+            </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+            {% block content %} {% endblock %}
+    </div>
+  </div>
+  </div>
+
+  <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+
+  <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %} "></script>
+  <script src="{% static 'js/lightbox.min.js' %} "></script>
+  <script src="{% static 'js/main.js' %} "></script>
+</body>
+
+</html>
